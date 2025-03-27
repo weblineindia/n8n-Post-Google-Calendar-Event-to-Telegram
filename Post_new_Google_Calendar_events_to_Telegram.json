@@ -1,0 +1,111 @@
+{
+  "name": "Post new Google Calendar events to Telegram",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "calendarId": {
+          "__rl": true,
+          "value": "",
+          "mode": "list",
+          "cachedResultName": ""
+        },
+        "triggerOn": "eventCreated",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendarTrigger",
+      "typeVersion": 1,
+      "position": [
+        100,
+        80
+      ],
+      "id": "be284a6b-7daf-48c8-99af-e939ecb96f32",
+      "name": "Google Calendar Trigger",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "",
+          "name": ""
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "",
+        "text": "=Event Name:  {{ $json.summary }}\nDescription: {{ $json.description }}\nEvent Location: {{ $json.location }}\nStart Date: {{ $json.start.dateTime }}\nEnd Date: {{ $json.end.dateTime }}\nCreator: {{ $json.creator.email }}\n\n",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        400,
+        80
+      ],
+      "id": "978e80b6-9b18-4fec-87e8-17fa2335ef48",
+      "name": "Telegram",
+      "webhookId": "dbb6a96e-db3b-4827-9455-a91007b89616"
+    },
+    {
+      "parameters": {
+        "content": "## Post new Google Calendar events to Telegram\n",
+        "height": 260,
+        "width": 640,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "f8027fbe-2b57-4b5a-a29b-22b9af27c67c",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Description\nThis n8n workflow automatically sends a Telegram message whenever a new event is added to Google Calendar. It extracts key event details such as event name, description, event creator, start date, end date, and location and forwards them to a specified Telegram chat. This ensures you stay updated on all newly scheduled events directly from Telegram.",
+        "width": 640,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        280
+      ],
+      "typeVersion": 1,
+      "id": "fd1e60e1-5c4a-439b-84fb-26e5da20ba13",
+      "name": "Sticky Note1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Calendar Trigger": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "9620d3f6-6324-49f8-b40e-da313f5044fb",
+  "meta": {
+    "instanceId": "14e4c77104722ab186539dfea5182e419aecc83d85963fe13f6de862c875ebfa"
+  },
+  "id": "CoYwFuZTq5kUuiba",
+  "tags": []
+}
